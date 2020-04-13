@@ -619,7 +619,7 @@ section {
         min-height: 100vh !important;
 }
 section .material-icons {
-    font-size: 12px!important;
+    font-size: 12px;
 }
 .pad_10 p,
 .pad_10 h1,
