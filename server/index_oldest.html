@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<meta charset="utf-8">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+			<title>Elie NTUMBA</title>
+
+			<link rel="icon" href="cv/logo_PC.ico" type="image/x-icon"/>
+
+			<link href="cv/assets/css/style.css" type="text/css" rel="stylesheet">
+			<link rel="stylesheet" href="cv/assets/css/animated.min.css">
+
+
+	</head>
+	<body>
+	<div id="background-wrapper">
+		<div id="background-image" class="image loaded" style="background-image:url('assets/img/Elie_Intro1.jpg')"></div>
+		<div class="background-overlay solid-color" style="background-color:#0a0a0a;opacity:0"></div>            
+		<canvas class="particles-js-canvas-el" width="968" height="1255" style="width: 100%; height: 100%;"></canvas></div>
+	<section class="frame-1">
+            <header>
+                <div class="logo-wrapper image no-animation"><a href="index.html" style="text-decoration:none"><img src="logo_PC.png" class="graphic-logo" alt="logo"></a></div>
+            </header>
+
+            <div class="content">
+
+                <div class="content-left">
+                    <ul class="social-list"><li class="social-child animated fadeInLeft"><a href="https://www.facebook.com/mren95/" target="top" class="social-facebook" ><img src="assets/img/Facebook.png"/></a></li><li class="social-child animated fadeInLeft"><a href="https://www.instagram.com/elinhohd/" target="top" class="social-instagram"><img src="assets/img/instagram.png" /></a></li><li class="social-child animated fadeInLeft"><a href="https://www.linkedin.com/in/elientumba/" target="top" class="sociallinkedin"><img src="assets/img/linkedin.png" /></a></li></ul><h4 class="cmp-title animated fadeInDown delay-small" style="font-size:25px;">Elie Ntumba</h4></div>
+                    <div class="content-right">
+                        <div id="counter" class="animated fadeInUp delay-huge" data-date="2">
+
+                            <div class="counter-wrap">
+                                <div class="counter-content">
+                                    <span id="counter-day" style="font-size: 25px;">Apprenti Ingénieur</span>
+                                    <p style="font-size: 1.3rem;">Systèmes embarqués</p>
+                                </div>
+                            </div>
+                            
+                        </div>     
+                    </div>
+            </div>
+
+
+            <footer>
+                <div class="footer-text animated fadeInUp delay-big">
+                <p><em><b>ElinhoHD©</b></em><b> </b></p>
+<p>Réalisation par Elie NTUMBA</p>
+                </div>
+
+                <div class="subscribe-wrapper animated fadeInUp delay-huge">
+                                
+            <form id="subscribe-form" method="post" class="cmp-subscribe">
+                <div class="cmp-form-inputs">
+
+                    <input type="hidden" id="save_options_field" name="save_options_field" value="8b9b089d39" /><input type="hidden" name="_wp_http_referer" value="/" />                    
+                            <input type="email" id="email-subscribe" name="email" placeholder="Entrez votre adresse courriel" required> 
+                                                    <button type="submit" id="submit-subscribe" value="Soumettre">Soumettre</button>
+                        
+                    <div style="display: none;">
+                        <input type="text" name="form_honeypot" value="" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div id="subscribe-response"></div>
+
+                    <div id="subscribe-overlay"></div>
+                </div>
+
+                
+            </form>
+
+            <script>
+                /* Subscribe form script */
+                                
+                var ajaxurl = '/wp-admin/admin-ajax.php';
+                var security = 'cc21ee6f33';
+                var msg = '';
+
+                window.addEventListener('load',function(event) {
+                    subForm( 'subscribe-form', 'submit-subscribe', 'subscribe-response', 'email-subscribe', 'firstname-subscribe', 'lastname-subscribe' );
+                });
+
+                subForm = function(formID, buttonID, resultID, emailID, firstnameID, lastnameID) {
+
+                    let selectForm = document.getElementById(formID); // Select the form by ID.
+                    let selectButton = document.getElementById(buttonID); // Select the button by ID.
+                    let selectResult = document.getElementById(resultID); // Select result element by ID.
+                    let emailInput =  document.getElementById(emailID); // Select email input by ID.
+                    let firstnameInput =  document.getElementById(firstnameID); // Select firstname input by ID.
+                    let lastnameInput =  document.getElementById(lastnameID); // Select lastname input by ID.
+                    let firstname = '';
+                    let lastname = '';
+                    selectButton.onclick = function(e){ // If clicked on the button.
+
+                        if ( emailInput.value !== '' ) {
+                            firstname = firstnameInput === null ? '' : firstnameInput.value;
+                            lastname = lastnameInput === null ? '' : lastnameInput.value;
+                            
+                            // I'm using the whatwg-fetch polyfill and a polyfill for Promises.
+                            fetch(ajaxurl, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                                    'Access-Control-Allow-Origin': '*',
+                                },
+                                body: `action=niteo_subscribe&ajax=true&form_honeypot=&email=${emailInput.value}&firstname=${firstname}&lastname=${lastname}&security=${security}`,
+                                credentials: 'same-origin'
+                            })
+                            .then((res) => {
+                                return res.json();
+                            })
+                            .then((data) => {
+                                selectResult.innerHTML = data.message; // Display the result inside result element.
+                                selectForm.classList.add('-subscribed');
+                                if (data.status == 1) {
+                                    selectForm.classList.remove('-subscribe-failed');
+                                    selectForm.classList.add('-subscribe-successful');
+                                    emailInput.value = '';
+                                    firstnameInput ? firstnameInput.value = '' : null;
+                                    lastnameInput ? lastnameInput.value = '' : null;
+                                    
+                                } else {
+                                    selectForm.classList.add('-subscribe-failed');
+                                }
+                            })
+                            .catch(function(error) { console.log(error.message); });
+                        }
+                    }
+
+                    selectForm.onsubmit = function(){ // Prevent page refresh
+                        return false;
+                    }
+                }
+            </script>
+             
+                </div>
+            </footer>
+
+         </section>
+
+	</body>
+	

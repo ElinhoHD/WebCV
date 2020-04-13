@@ -1,0 +1,18 @@
+{
+	"folders": [{
+		"path": ".",
+		"*.extension": "py,css,js,mpy,png,html,json,txt,xml,ico"
+	}],
+	"settings": {
+		"files.exclude": {
+			"*.md": false,
+			"*.code-workspace": false,
+			"*.txt": false,
+			"*.conf": false,
+			"*.sh": true,
+			"*.bat":true,
+			"*.ico": false
+		},
+
+	}
+}
